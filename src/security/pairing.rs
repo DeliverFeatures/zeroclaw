@@ -376,6 +376,9 @@ mod tests {
     #[test]
     fn zero_zero_is_public() {
         assert!(is_public_bind("0.0.0.0"));
+        // IPv6 wildcard forms must also be detected as public
+        assert!(is_public_bind("::"));
+        assert!(is_public_bind("[::]"));
     }
 
     #[test]
