@@ -603,7 +603,8 @@ pub async fn start_channels(config: Config) -> Result<()> {
             msg.channel,
             msg.sender,
             if msg.content.len() > 80 {
-                format!("{}...", &msg.content[..80])
+                let end = msg.content.floor_char_boundary(80);
+                format!("{}...", &msg.content[..end])
             } else {
                 msg.content.clone()
             }
@@ -629,7 +630,8 @@ pub async fn start_channels(config: Config) -> Result<()> {
                 println!(
                     "  🤖 Reply: {}",
                     if response.len() > 80 {
-                        format!("{}...", &response[..80])
+                        let end = response.floor_char_boundary(80);
+                        format!("{}...", &response[..end])
                     } else {
                         response.clone()
                     }
